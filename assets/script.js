@@ -6,51 +6,80 @@ async function catchData()
 {
     let save = JSON.parse(localStorage.getItem('response'));
     //const response = await fetch(
-       // 'https://api.openweathermap.org/data/2.5/forecast?q=London&appid=001e5fb3999f87d9911c72d5600aac55&units=metric',
-       // {
+      //  'https://api.openweathermap.org/data/2.5/forecast?q=London&appid=001e5fb3999f87d9911c72d5600aac55&units=metric',
+      //  {
         //    method: 'GET'
        // }
     //);
     //let stock = await response.json();
     stockData = save;
     localStorage.setItem('response', JSON.stringify(stockData));
-    //console.log(" " + allTimes[0].dt_txt + " " +  allTimes[0].main.temp + " " + allTimes[0].weather[0].description + " " + stockData.city.name);
+
 }
 catchData()
+//document.getElementById('submit').addEventListener('click', function(){catchData()});
 
 let allTimes = stockData.list;
+console.log(allTimes);
 //Création d'un objet à partir du tableau de données
 let oneDay = {
         city: stockData.city.name,
-        date: allTimes[0].dt_txt,
-        degree:  allTimes[0].main.temp,
+        date: allTimes[0].dt_txt.split(' ')[0],
+        degree:  (allTimes[0].main.temp + ' °C'),
         wheaterDes: allTimes[0].weather[0].description,
 }
 
+//Moyenne des températures
+function CalAverage (newArray){
+    let compt = 0;
+        totalDegree = 0;
+        newDate = "";
+        newArray = [];
+
+    for (let elem of allTimes) {
+        if (!newDate || newDate == elem.dt_txt.split(' ')[0] && allTimes.indexOf(elem) < allTimes.length - 1) {
+            newDate = elem.dt_txt.split(' ')[0];
+            totalDegree += elem.main.temp;
+            compt++;
+        }
+        else {
+            newArray.push([newDate,((totalDegree/compt).toFixed(2))]);
+            compt = 1;
+            totalDegree = elem.main.temp;
+            newDate = elem.dt_txt.split(' ')[0];
+        }
+    }
+    return newArray;
+}
+let newAverage = [];
+let responseAverage = CalAverage(newAverage);
+
+//Création de l'objet des 5 jours suivants grâce à la fonction des moyennes
 let fourDay = [
 {
     city: stockData.city.name,
-    date: allTimes[1].dt_txt,
-    degree:  allTimes[1].main.temp,
-    wheaterDes: allTimes[1].weather[0].description,
+    date: responseAverage[1][0],
+    degree: (responseAverage[1][1] + ' °C'),
 },
 {
     city: stockData.city.name,
-    date: allTimes[2].dt_txt,
-    degree:  allTimes[2].main.temp,
-    wheaterDes: allTimes[2].weather[0].description,
+    date: responseAverage[2][0],
+    degree: (responseAverage[2][1] + ' °C'),
 },
 {
     city: stockData.city.name,
-    date: allTimes[3].dt_txt,
-    degree:  allTimes[3].main.temp,
-    wheaterDes: allTimes[3].weather[0].description,
+    date: responseAverage[3][0],
+    degree: (responseAverage[3][1] + ' °C'),
 },
 {
     city: stockData.city.name,
-    date: allTimes[4].dt_txt,
-    degree:  allTimes[4].main.temp,
-    wheaterDes: allTimes[4].weather[0].description,
+    date: responseAverage[4][0],
+    degree: (responseAverage[4][1] + ' °C'),
+},
+{
+    city: stockData.city.name,
+    date: responseAverage[5][0],
+    degree: (responseAverage[5][1] + ' °C'),
 },
 ]
 
@@ -94,7 +123,7 @@ function addElement() {
     divCart2.setAttribute('class', 'main__cart2');
     divCart.appendChild(divCart2);
     //Création de la boucle pour les 4 jours
-    for ( i = 0; i<4; i++){
+    for ( i = 0; i<5; i++){
 
     //Création de la div unique par jour
     let divCart2All = document.createElement('div');
@@ -113,11 +142,11 @@ function addElement() {
     divCart2All.appendChild(cartDegreeRepeat);
     cartDegreeRepeat.textContent = fourDay[i].degree;
 
-    //Création de la div contenant la description du temps
+    /*//Création de la div contenant la description du temps
     let cartWeatherRepeat = document.createElement('div');
     cartWeatherRepeat.setAttribute('class', 'main__cart2__all--wheather');
     divCart2All.appendChild(cartWeatherRepeat);
-    cartWeatherRepeat.textContent = fourDay[i].wheaterDes;
+    cartWeatherRepeat.textContent = fourDay[i].wheaterDes;*/
     }
     //Effacer les premières données
     mainAll.firstChild.remove();
