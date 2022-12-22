@@ -1,5 +1,3 @@
-
-
 //Sélection du main
 let mainAll = document.getElementsByClassName('main')[0];
 let stockData = [];
@@ -19,7 +17,6 @@ async function catchData()
 
 }
 catchData()
-//document.getElementById('submit').addEventListener('click', function(){catchData()});
 
 let allTimes = stockData.list;
 let allCity = stockData.city;
@@ -30,12 +27,13 @@ let oneDay = {
         city: allCity.name,
         date: allTimes[0].dt_txt.split(' ')[0],
         degree:  (allTimes[0].main.temp + ' °C'),
-        wheaterDes: allTimes[0].weather[0].description,
+        wheaterDes: allTimes[0].weather[0].id,
         sunRise: allCity.sunrise,
         sunSet: allCity.sunset,
 }
 console.log(new Date ((oneDay.sunRise)*1000));
 console.log(new Date ((oneDay.sunSet)*1000));
+console.log(oneDay.wheaterDes);
 
 //Moyenne des températures
 function CalAverage (newArray){
@@ -115,44 +113,49 @@ function addElement() {
     let arrayDay = (oneDay.date).split("-");
     cartDate.textContent = arrayDay[2]+"/"+arrayDay[1];
 
+    //Création de la div comprenant la température et la description du temps
+    let divMid = document.createElement('div');
+    divMid.setAttribute('class', 'main__cart1__divmid');
+    divCart1.appendChild(divMid);
+
     //Création de la div contenant la température
     let cartDegree = document.createElement('div');
     cartDegree.setAttribute('class', 'main__cart1__degree');
-    divCart1.appendChild(cartDegree);
+    divMid.appendChild(cartDegree);
     cartDegree.textContent = oneDay.degree;
 
     //Création de la div contenant la description du temps
     let cartWeather = document.createElement('div');
-    cartWeather.setAttribute('class', 'main__cart1__wheater');
-    divCart1.appendChild(cartWeather);
+    cartWeather.setAttribute('class', 'main__cart1__weather');
+    divMid.appendChild(cartWeather);
     cartWeather.textContent = (' ');
     //fonction permettant de placer une image en fonction du temps
-        if (oneDay.wheaterDes == 'clear sky') {
-            cartWeather.classList.add('main__cart1__wheater--clearsky');
+        if (oneDay.wheaterDes == 800) {
+            cartWeather.classList.add('main__cart1__weather--clearsky');
         }
-        else if (oneDay.wheaterDes == 'few clouds') {
-            cartWeather.classList.add('main__cart1__wheater--fewclouds');
+        else if (oneDay.wheaterDes == 801) {
+            cartWeather.classList.add('main__cart1__weather--fewclouds');
         }
-        else if (oneDay.wheaterDes == 'scattered clouds') {
+        else if (oneDay.wheaterDes == 802) {
             cartWeather.classList.add('main__cart1__wheater--scatteredclouds');
         }
-        else if (oneDay.wheaterDes == 'broken clouds') {
-            cartWeather.classList.add('main__cart1__wheater--brokenclouds');
+        else if (oneDay.wheaterDes == 803 || oneDay.wheaterDes == 804) {
+            cartWeather.classList.add('main__cart1__weather--brokenclouds');
         }
-        else if (oneDay.wheaterDes == 'shower rain') {
-            cartWeather.classList.add('main__cart1__wheater--showerrain');
+        else if ((oneDay.wheaterDes >= 300 && oneDay.wheaterDes <= 301) || (oneDay.wheaterDes >= 520 && oneDay.wheaterDes <= 531)) {
+            cartWeather.classList.add('main__cart1__weather--showerrain');
         }
-        else if (oneDay.wheaterDes == 'rain') {
-            cartWeather.classList.add('main__cart1__wheater--rain');
+        else if (oneDay.wheaterDes >= 500 && oneDay.wheaterDes <= 504) {
+            cartWeather.classList.add('main__cart1__weather--rain');
         }
-        else if (oneDay.wheaterDes == '	thunderstorm') {
-            cartWeather.classList.add('main__cart1__wheater--thunderstorm');
+        else if (oneDay.wheaterDes >= 200 && oneDay.wheaterDes <= 232) {
+            cartWeather.classList.add('main__cart1__weather--thunderstorm');
         }
-        else if (oneDay.wheaterDes == 'snow') {
-            cartWeather.classList.add('main__cart1__wheater--snow');
+        else if ((oneDay.wheaterDes == 511) || (oneDay.wheaterDes >= 600 && oneDay.wheaterDes <= 622)) {
+            cartWeather.classList.add('main__cart1__weather--snow');
         }
-        else if (oneDay.wheaterDes == 'mist') {
-            cartWeather.classList.add('main__cart1__wheater--mist');
+        else if (oneDay.wheaterDes >= 700 && oneDay.wheaterDes <= 781)  {
+            cartWeather.classList.add('main__cart1__weather--mist');
         }
         else {
             cartWeather.style.visibility = 'hidden';

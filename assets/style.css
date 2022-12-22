@@ -15,6 +15,7 @@ body {
 .header__logo {
   width: 60%;
   margin-left: 20%;
+  margin-top: 5vw;
 }
 .header__form {
   display: flex;
@@ -31,18 +32,140 @@ body {
   font-family: "Fredoka", sans-serif;
   font-weight: 300;
   font-size: 4vw;
+  color: #e4eae5;
   background-color: #dcac64;
   border: 2vw solid #dcac64;
   box-shadow: 2vw 2vw 6vw #a6b9b7;
 }
 
-.main__cart1__wheater {
-  width: 50vw;
-  height: 50vh;
+.main__cart {
+  margin-top: 10vw;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 0.5vw solid #a6b9b7;
+  border-radius: 10vw;
+  width: 90%;
+  box-shadow: 0vw 0vw 7vw #a6b9b7;
+}
+.main__cart1 {
+  height: 30vh;
+}
+.main__cart1__city {
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: 9vw;
+  margin-bottom: 2vw;
+  color: #7c847c;
+}
+.main__cart1__date {
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 400;
+  font-size: 4.5vw;
+  margin-top: 0;
+  color: #dcac64;
+}
+.main__cart1__divmid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10vw;
+}
+.main__cart1__degree {
+  margin-left: 4vw;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: 13vw;
+  color: #4b4f4b;
+  padding-bottom: 11vw;
+  -webkit-mask-image: linear-gradient(180deg, rgb(0, 0, 0), transparent 70%);
+          mask-image: linear-gradient(180deg, rgb(0, 0, 0), transparent 70%);
+}
+.main__cart2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 5vw;
+  padding: 2.5vw;
+  border: 0.5vw solid #a6b9b7;
+  border-radius: 5vw;
+}
+.main__cart2__all {
+  border-left: 0.7vw solid #dcac64;
+  border-right: 0.7vw solid #dcac64;
+  padding: 1.2vw;
+}
+.main__cart2__all--date {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 400;
+  font-size: 4vw;
+  margin-bottom: 2vw;
+  color: #4b4f4b;
+}
+.main__cart2__all--degree {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 400;
+  font-size: 3.5vw;
+  color: #323532;
 }
 
-.main__cart1__wheater--fewclouds {
-  background-image: url(images/bruine.gif);
+.main__cart1__weather {
+  width: 20vw;
+  height: 20vh;
+  margin-right: 4vw;
+}
+
+.main__cart1__weather--clearsky {
+  background-image: url(images/soleil.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--fewclouds {
+  background-image: url(images/nuageux.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__wheater--scatteredclouds {
+  background-image: url(images/des-nuages.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--brokenclouds {
+  background-image: url(images/des-nuages.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--showerrain {
+  background-image: url(images/pluie.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--rain {
+  background-image: url(images/pluie+soleil.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--thunderstorm {
+  background-image: url(images/tempete.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--snow {
+  background-image: url(images/neige.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__cart1__weather--mist {
+  background-image: url(images/brumeux.gif);
   background-size: contain;
   background-repeat: no-repeat;
 }/*# sourceMappingURL=style.css.map */
