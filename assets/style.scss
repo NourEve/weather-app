@@ -1,0 +1,72 @@
+//Polices
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Fredoka:wght@300;400;500&display=swap');
+/*pour insérer les polices, insérer :
+font-family: 'DynaPuff', cursive;
+font-family: 'Fredoka', sans-serif;
+*/
+
+//Variables
+$darkGrey : #a6b9b7;
+$green : #7c847c;
+$blue : #33cbcb;
+$yellow : #dcac64;
+$grey : #e4eae5;
+
+//Mixins
+@mixin fredokaFonts($weigth, $size) {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: $weigth;
+    font-size: $size;
+}
+
+//Mise en page
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(images/weather-app-sunrise.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header {
+    &__logo {
+        width: 60%;
+        margin-left: 20%;
+    }
+    &__form {
+        display: flex;
+        justify-content: center;
+        #inputCity {
+            border: 1vw solid $darkGrey;
+            border-bottom: 1vw solid $yellow;
+            border-right: 1vw solid $yellow;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+        }
+        #submit {
+            text-align: center;
+            @include fredokaFonts(300, 4vw);
+            background-color: $yellow;
+            border: 2vw solid $yellow;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+        }
+    }
+}
+
+.main {
+    &__cart {
+
+    }
+    &__cart1 {
+        
+    }
+}
+.main__cart1__wheater {
+    width: 50vw;
+    height: 50vh;
+}
+
+.main__cart1__wheater--fewclouds {
+    background-image: url(images/bruine.gif);
+    background-size: contain;
+    background-repeat: no-repeat;
+}

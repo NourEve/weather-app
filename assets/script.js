@@ -1,3 +1,5 @@
+
+
 //Sélection du main
 let mainAll = document.getElementsByClassName('main')[0];
 let stockData = [];
@@ -20,14 +22,20 @@ catchData()
 //document.getElementById('submit').addEventListener('click', function(){catchData()});
 
 let allTimes = stockData.list;
+let allCity = stockData.city;
 console.log(allTimes);
+
 //Création d'un objet à partir du tableau de données
 let oneDay = {
-        city: stockData.city.name,
+        city: allCity.name,
         date: allTimes[0].dt_txt.split(' ')[0],
         degree:  (allTimes[0].main.temp + ' °C'),
         wheaterDes: allTimes[0].weather[0].description,
+        sunRise: allCity.sunrise,
+        sunSet: allCity.sunset,
 }
+console.log(new Date ((oneDay.sunRise)*1000));
+console.log(new Date ((oneDay.sunSet)*1000));
 
 //Moyenne des températures
 function CalAverage (newArray){
@@ -104,7 +112,8 @@ function addElement() {
     let cartDate = document.createElement('div');
     cartDate.setAttribute('class', 'main__cart1__date');
     divCart1.appendChild(cartDate);
-    cartDate.textContent = oneDay.date;
+    let arrayDay = (oneDay.date).split("-");
+    cartDate.textContent = arrayDay[2]+"/"+arrayDay[1];
 
     //Création de la div contenant la température
     let cartDegree = document.createElement('div');
@@ -116,7 +125,38 @@ function addElement() {
     let cartWeather = document.createElement('div');
     cartWeather.setAttribute('class', 'main__cart1__wheater');
     divCart1.appendChild(cartWeather);
-    cartWeather.textContent = oneDay.wheaterDes;
+    cartWeather.textContent = (' ');
+    //fonction permettant de placer une image en fonction du temps
+        if (oneDay.wheaterDes == 'clear sky') {
+            cartWeather.classList.add('main__cart1__wheater--clearsky');
+        }
+        else if (oneDay.wheaterDes == 'few clouds') {
+            cartWeather.classList.add('main__cart1__wheater--fewclouds');
+        }
+        else if (oneDay.wheaterDes == 'scattered clouds') {
+            cartWeather.classList.add('main__cart1__wheater--scatteredclouds');
+        }
+        else if (oneDay.wheaterDes == 'broken clouds') {
+            cartWeather.classList.add('main__cart1__wheater--brokenclouds');
+        }
+        else if (oneDay.wheaterDes == 'shower rain') {
+            cartWeather.classList.add('main__cart1__wheater--showerrain');
+        }
+        else if (oneDay.wheaterDes == 'rain') {
+            cartWeather.classList.add('main__cart1__wheater--rain');
+        }
+        else if (oneDay.wheaterDes == '	thunderstorm') {
+            cartWeather.classList.add('main__cart1__wheater--thunderstorm');
+        }
+        else if (oneDay.wheaterDes == 'snow') {
+            cartWeather.classList.add('main__cart1__wheater--snow');
+        }
+        else if (oneDay.wheaterDes == 'mist') {
+            cartWeather.classList.add('main__cart1__wheater--mist');
+        }
+        else {
+            cartWeather.style.visibility = 'hidden';
+        }
 
     //Création de la DEUXIEME div pour les 4 autres jours
     let divCart2 = document.createElement('div');
@@ -134,7 +174,8 @@ function addElement() {
     let cartDateRepeat = document.createElement('div');
     cartDateRepeat.setAttribute('class', 'main__cart2__all--date');
     divCart2All.appendChild(cartDateRepeat);
-    cartDateRepeat.textContent = fourDay[i].date;
+    let arrayDayRepeat = (fourDay[i].date).split("-");
+    cartDateRepeat.textContent = arrayDayRepeat[2]+"/"+arrayDayRepeat[1];
 
     //Création de la div contenant la température
     let cartDegreeRepeat = document.createElement('div');
