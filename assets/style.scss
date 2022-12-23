@@ -1,0 +1,279 @@
+//Polices
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Fredoka:wght@300;400;500&display=swap');
+/*pour insérer les polices, insérer :
+font-family: 'DynaPuff', cursive;
+font-family: 'Fredoka', sans-serif;
+*/
+
+//Variables
+$darkGrey : #a6b9b7;
+$green : #7c847c;
+$blue : #33cbcb;
+$yellow : #dcac64;
+$grey : #e4eae5;
+
+//Mixins
+@mixin fredokaFonts($weigth, $size) {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: $weigth;
+    font-size: $size;
+}
+
+//Mise en page
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(images/weather-app-sunrise.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.header {
+    &__logo {
+        width: 60%;
+        margin-left: 20%;
+        margin-top: 5vw;
+    }
+    &__form {
+        display: flex;
+        justify-content: center;
+        #inputCity {
+            border: 1vw solid $darkGrey;
+            border-bottom: 1vw solid $yellow;
+            border-right: 1vw solid $yellow;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+        }
+        #submit {
+            text-align: center;
+            @include fredokaFonts(300, 4vw);
+            color: $grey;
+            background-color: $yellow;
+            border: 2vw solid $yellow;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+        }
+    }
+    #selectCity {
+        text-align: center;
+        #saveCity {
+            text-align: center;
+            @include fredokaFonts(300, 4vw);
+            color: $grey;
+            background-color: $yellow;
+            border: 2vw solid $yellow;
+            border-bottom: 1vw solid $darkGrey;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+            width: 40vw;
+            height: 5vh;
+        }
+    }
+}
+
+.main {
+    &__cart {
+        margin-top: 10vw;
+        margin-left: 5%;
+        margin-right: 5%;
+        border: 0.5vw solid $darkGrey;
+        border-radius: 10vw;
+        width: 90%;
+        box-shadow: 0vw 0vw 7vw $darkGrey;
+    }
+    &__cart1 {
+        height: 30vh;
+        &__city {
+            text-align: center;
+            @include fredokaFonts(500, 9vw);
+            margin-bottom: 2vw;
+            color: $green;
+        }
+        &__date {
+            text-align: center;
+            @include fredokaFonts(400, 4.5vw);
+            margin-top: 0;
+            color: $yellow;
+        }
+        &__divmid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10vw;
+        }
+        &__degree {
+            margin-left: 4vw;
+            @include fredokaFonts(500, 13vw);
+            color: darken($green, 20%);
+            padding-bottom: 11vw;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 70%);
+        }
+        &__weather {
+            width: 20vw;
+            height: 20vh;
+            margin-right: 4vw;
+            &--clearsky {
+                background-image: url(images/soleil.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--fewclouds {
+                background-image: url(images/nuageux.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--scatteredclouds{
+                background-image: url(images/des-nuages.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--brokenclouds {
+                background-image: url(images/des-nuages.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--showerrain{
+                background-image: url(images/pluie.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--rain {
+                background-image: url(images/pluie+soleil.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--thunderstorm{
+                background-image: url(images/tempete.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--snow {
+                background-image: url(images/neige.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            &--mist {
+                background-image: url(images/brumeux.gif);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+    &__cart2 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin : 5vw;
+        padding: 2.5vw;
+        border: 0.5vw solid $darkGrey;
+        border-radius: 5vw;
+        &__all {
+            border-left: 0.7vw solid $yellow;
+            border-right: 0.7vw solid $yellow;
+            padding: 1.2vw;
+            &--date {
+                @include fredokaFonts(400, 4vw);
+                margin-bottom: 2vw;
+                color: darken($green, 20%);
+            }
+            &--degree {
+                @include fredokaFonts(400, 3.5vw);
+                color: darken($green, 30%);
+            }
+        }
+    }
+}
+
+//MediaQueries
+@media screen and (min-width: 1024px){
+    body {
+        background-image: url(images/weather-app-sunrise-desktop.webp);
+    }
+    .header {
+        &__logo {
+            width: 30%;
+            margin-left: 35%;
+            margin-top: 1vw;
+        }
+        &__form {
+            #inputCity {
+                border: 0.5vw solid $darkGrey;
+                width: 25vw;
+            }
+            #submit {
+                @include fredokaFonts(300, 2vw);
+                border: 1vw solid $yellow;
+            }
+        }
+        #selectCity {
+            #saveCity {
+                @include fredokaFonts(300, 2vw);
+                color: $grey;
+                background-color: $yellow;
+                border: 1vw solid $yellow;
+                border-bottom: 0.5vw solid $darkGrey;
+                width: 30vw;
+                height: 7vh;
+            }
+        }
+    }
+    .main {
+        &__cart {
+            margin-top: 2vw;
+            width: 90%;
+            height: 60vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 5vw;
+        }
+        &__cart1 {
+            height: 60vh;
+            &__city {
+                @include fredokaFonts(500, 4vw);
+                margin-bottom: 1vw;
+            }
+            &__date {
+                @include fredokaFonts(400, 2vw);
+                margin-top: 0;
+            }
+            &__divmid {
+                margin-top: 1vw;
+                margin-bottom: 0vw;
+                flex-direction: row-reverse;
+            }
+            &__degree {
+                margin-left: 2vw;
+                @include fredokaFonts(500, 4.5vw);
+                width: 20vw;
+                padding-bottom: 0;
+                mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 100%);
+            }
+            &__weather {
+                width: 20vw;
+                height: 20vh;
+                margin-right: 2vw;
+                margin-left: 5vw;
+            }
+        }
+        &__cart2 {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin : 1vw;
+            padding: 0.5vw;
+            border: none;
+            border-radius: 2vw;
+            height: 17vh;
+            &__all {
+                border-left: 0.4vw solid $yellow;
+                border-right: 0.4vw solid $yellow;
+                &--date {
+                    @include fredokaFonts(400, 2vw);
+                    margin-bottom: 0vw;
+                }
+                &--degree {
+                    @include fredokaFonts(400, 1.5vw);
+                }
+            }
+        }
+    }
+}
