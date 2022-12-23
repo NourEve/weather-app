@@ -203,6 +203,17 @@ body {
                 border: 1vw solid $yellow;
             }
         }
+        #selectCity {
+            #saveCity {
+                @include fredokaFonts(300, 2vw);
+                color: $grey;
+                background-color: $yellow;
+                border: 1vw solid $yellow;
+                border-bottom: 0.5vw solid $darkGrey;
+                width: 30vw;
+                height: 7vh;
+            }
+        }
     }
     .main {
         &__cart {

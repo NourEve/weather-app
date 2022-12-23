@@ -196,6 +196,17 @@ body {
     font-size: 2vw;
     border: 1vw solid #dcac64;
   }
+  .header #selectCity #saveCity {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 300;
+    font-size: 2vw;
+    color: #e4eae5;
+    background-color: #dcac64;
+    border: 1vw solid #dcac64;
+    border-bottom: 0.5vw solid #a6b9b7;
+    width: 30vw;
+    height: 7vh;
+  }
   .main__cart {
     margin-top: 2vw;
     width: 90%;
