@@ -10,7 +10,7 @@ body {
   background-image: url(images/weather-app-sunrise.webp);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: fixed;
+  background-attachment: fixed;
 }
 
 .header__logo {
@@ -37,6 +37,22 @@ body {
   background-color: #dcac64;
   border: 2vw solid #dcac64;
   box-shadow: 2vw 2vw 6vw #a6b9b7;
+}
+.header #selectCity {
+  text-align: center;
+}
+.header #selectCity #saveCity {
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 300;
+  font-size: 4vw;
+  color: #e4eae5;
+  background-color: #dcac64;
+  border: 2vw solid #dcac64;
+  border-bottom: 1vw solid #a6b9b7;
+  box-shadow: 2vw 2vw 6vw #a6b9b7;
+  width: 40vw;
+  height: 5vh;
 }
 
 .main__cart {

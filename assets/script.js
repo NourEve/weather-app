@@ -3,16 +3,39 @@ function catchData()
 {
     //let save = JSON.parse(localStorage.getItem('response'));
     let fetchAPI = (nameCity) => fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ nameCity +'&appid=001e5fb3999f87d9911c72d5600aac55&units=metric');
+
     //Sélection du main
     let mainAll = document.getElementsByClassName('main')[0];
         stockData = [];
         inputCity = document.getElementById('inputCity').value;
+        arrayCity = [];
+
+    //Sauvegarder le nom des villes dans le selct
+    arrayCity = JSON.parse(localStorage.getItem('save'))
+        if (!arrayCity) {
+        arrayCity = []
+        }
+
+    if (arrayCity.indexOf(inputCity) == -1)
+        arrayCity.push(inputCity)
+    const objJson = JSON.stringify(arrayCity)
+    localStorage.setItem('save', objJson)
+    console.log(arrayCity);
+    document.getElementById('saveCity').innerText = "";
+    for (let elem of arrayCity) {
+        let optionCity = document.createElement('option');
+            optionCity.setAttribute('value', elem);
+            optionCity.setAttribute('class', 'option');
+            optionCity.textContent = elem;
+            document.getElementById('saveCity').appendChild(optionCity);
+    }
+
+    //Appel de l'API
     fetchAPI(inputCity)
         .then ((response) => response.json())
         .then ((json) => {
             let allTimes = json.list;
                 allCity = json.city;
-            console.log(allTimes);
 
             //Création d'un objet à partir du tableau de données
             let oneDay = {
@@ -48,7 +71,6 @@ function catchData()
             }
             let newAverage = [];
                 responseAverage = CalAverage(newAverage);
-                console.log(responseAverage);
 
             //Création de l'objet des 5 jours suivants grâce à la fonction des moyennes
             let fourDay = [
@@ -182,17 +204,12 @@ function catchData()
             divCart2All.appendChild(cartWeatherRepeat);
             cartWeatherRepeat.textContent = fourDay[i].wheaterDes;*/
             }
-
-            /*stockData = JSON.parse(localStorage.getItem('save'));
-            if (!stockData) {
-                stockData = [];
-            }
-            stockData.push(json);
-            let objStockData = JSON.stringify(stockData);
-            localStorage.setItem('save', objStockData);
-            console.log(stockData);*/
         })
+
         //Effacer les premières données
-            mainAll.firstChild.remove();
+        .then (mainAll.firstChild.remove())
 }
+
 document.getElementById('submit').addEventListener('click', function(){catchData()});
+
+//localStorage.clear();

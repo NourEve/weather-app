@@ -26,7 +26,7 @@ body {
     background-image: url(images/weather-app-sunrise.webp);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: fixed;
+    background-attachment: fixed;
 }
 
 .header {
@@ -51,6 +51,20 @@ body {
             background-color: $yellow;
             border: 2vw solid $yellow;
             box-shadow: 2vw 2vw 6vw $darkGrey;
+        }
+    }
+    #selectCity {
+        text-align: center;
+        #saveCity {
+            text-align: center;
+            @include fredokaFonts(300, 4vw);
+            color: $grey;
+            background-color: $yellow;
+            border: 2vw solid $yellow;
+            border-bottom: 1vw solid $darkGrey;
+            box-shadow: 2vw 2vw 6vw $darkGrey;
+            width: 40vw;
+            height: 5vh;
         }
     }
 }
