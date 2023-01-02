@@ -1,11 +1,8 @@
-//Sélection du main
-let mainAll = document.getElementsByClassName('main')[0];
-
 function displayWeather()
 {
     let fetchAPI = (nameCity) => fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ nameCity +'&appid=001e5fb3999f87d9911c72d5600aac55&units=metric');
-    
-    let arrayCity = [];
+        arrayCity = [];
+
     arrayCity = JSON.parse(localStorage.getItem('save'))
         if (!arrayCity) {
         arrayCity = []
@@ -13,6 +10,9 @@ function displayWeather()
 
     //Sauvegarder le nom des villes dans le select
     saveInput();
+
+    //Sélection du main
+    let mainAll = document.getElementsByClassName('main')[0];
 
     //Appel de l'API
     fetchAPI(inputCity)
@@ -23,7 +23,7 @@ function displayWeather()
 
             //Moyenne des températures
             let newAverage = [];
-                responseAverage = CalAverage(newAverage, allTimes);
+                responseAverage = calAverage(newAverage, allTimes);
 
             //Création du 1er objet avec les données actuelles
             let oneDay = {
@@ -57,6 +57,11 @@ function displayWeather()
                 date: responseAverage[4][0],
                 degree: (responseAverage[4][1] + ' °C'),
             },
+            /*{
+                city: allCity.name,
+                date: responseAverage[5][0],
+                degree: (responseAverage[5][1] + ' °C'),
+            },*/
             ]
 
             //Création d'une div reprenant une carte
@@ -94,7 +99,7 @@ function saveInput() {
 }
 
 //Moyenne des températures
-function CalAverage (newArray, listJson){
+function calAverage (newArray, listJson){
     let compt = 0;
         totalDegree = 0;
         newDate = "";
