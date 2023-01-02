@@ -1,34 +1,12 @@
+//Sélection du main
+let mainAll = document.getElementsByClassName('main')[0];
 
 function catchData()
 {
-    //let save = JSON.parse(localStorage.getItem('response'));
     let fetchAPI = (nameCity) => fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ nameCity +'&appid=001e5fb3999f87d9911c72d5600aac55&units=metric');
 
-    //Sélection du main
-    let mainAll = document.getElementsByClassName('main')[0];
-        stockData = [];
-        inputCity = document.getElementById('inputCity').value;
-        arrayCity = [];
-
-    //Sauvegarder le nom des villes dans le selct
-    arrayCity = JSON.parse(localStorage.getItem('save'))
-        if (!arrayCity) {
-        arrayCity = []
-        }
-
-    if (arrayCity.indexOf(inputCity) == -1)
-        arrayCity.push(inputCity)
-    const objJson = JSON.stringify(arrayCity)
-    localStorage.setItem('save', objJson)
-    console.log(arrayCity);
-    document.getElementById('saveCity').innerText = "";
-    for (let elem of arrayCity) {
-        let optionCity = document.createElement('option');
-            optionCity.setAttribute('value', elem);
-            optionCity.setAttribute('class', 'option');
-            optionCity.textContent = elem;
-            document.getElementById('saveCity').appendChild(optionCity);
-    }
+    //Sauvegarde du nom des villes
+    saveInput();
 
     //Appel de l'API
     fetchAPI(inputCity)
@@ -37,7 +15,11 @@ function catchData()
             let allTimes = json.list;
                 allCity = json.city;
 
-            //Création d'un objet à partir du tableau de données
+            //Moyenne des températures
+            let newAverage = [];
+                responseAverage = CalAverage(newAverage, allTimes);
+
+            //Création du 1er objet reprenant les données actuelles
             let oneDay = {
                 city: allCity.name,
                 date: allTimes[0].dt_txt.split(' ')[0],
@@ -47,32 +29,7 @@ function catchData()
                 sunSet: allCity.sunset,
             }
 
-            //Moyenne des températures
-            function CalAverage (newArray){
-            let compt = 0;
-                totalDegree = 0;
-                newDate = "";
-                newArray = [];
-
-            for (let elem of allTimes) {
-                if (!newDate || newDate == elem.dt_txt.split(' ')[0] && allTimes.indexOf(elem) < allTimes.length - 1) {
-                    newDate = elem.dt_txt.split(' ')[0];
-                    totalDegree += elem.main.temp;
-                    compt++;
-                }
-                else {
-                    newArray.push([newDate,((totalDegree/compt).toFixed(2))]);
-                    compt = 1;
-                    totalDegree = elem.main.temp;
-                    newDate = elem.dt_txt.split(' ')[0];
-                }
-            }
-            return newArray;
-            }
-            let newAverage = [];
-                responseAverage = CalAverage(newAverage);
-
-            //Création de l'objet des 5 jours suivants grâce à la fonction des moyennes
+            //Création de l'objet des 5 jours suivants
             let fourDay = [
             {
                 city: allCity.name,
@@ -209,6 +166,54 @@ function catchData()
         //Effacer les premières données
         .then (mainAll.firstChild.remove())
 }
+
+//Sauvegarder le nom des villes dans le select
+function saveInput() {
+    let inputCity = document.getElementById('inputCity').value;
+        arrayCity = [];
+
+    arrayCity = JSON.parse(localStorage.getItem('save'));
+    if (!arrayCity) {
+        arrayCity = [];
+    }
+
+    if (arrayCity.indexOf(inputCity) == -1)
+        arrayCity.push(inputCity);
+    const objJson = JSON.stringify(arrayCity);
+    localStorage.setItem('save', objJson);
+    console.log(arrayCity);
+    document.getElementById('saveCity').innerText = "";
+    for (let elem of arrayCity) {
+        let optionCity = document.createElement('option');
+        optionCity.setAttribute('value', elem);
+        optionCity.setAttribute('class', 'option');
+        optionCity.textContent = elem;
+        document.getElementById('saveCity').appendChild(optionCity);
+    }
+}
+
+//Moyenne des températures
+function CalAverage (newArray, listJson){
+    let compt = 0;
+        totalDegree = 0;
+        newDate = "";
+        newArray = [];
+
+    for (let elem of listJson) {
+        if (!newDate || newDate == elem.dt_txt.split(' ')[0] && listJson.indexOf(elem) < listJson.length - 1) {
+            newDate = elem.dt_txt.split(' ')[0];
+            totalDegree += elem.main.temp;
+            compt++;
+        }
+        else {
+            newArray.push([newDate,((totalDegree/compt).toFixed(2))]);
+            compt = 1;
+            totalDegree = elem.main.temp;
+            newDate = elem.dt_txt.split(' ')[0];
+        }
+    }
+    return newArray;
+    }
 
 document.getElementById('submit').addEventListener('click', function(){catchData()});
 
