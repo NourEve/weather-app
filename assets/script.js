@@ -8,25 +8,13 @@ function catchData()
         inputCity = document.getElementById('inputCity').value;
         arrayCity = [];
 
-    //Sauvegarder le nom des villes dans le select
     arrayCity = JSON.parse(localStorage.getItem('save'))
         if (!arrayCity) {
         arrayCity = []
         }
 
-    if (arrayCity.indexOf(inputCity) == -1)
-        arrayCity.push(inputCity)
-    const objJson = JSON.stringify(arrayCity)
-    localStorage.setItem('save', objJson)
-    console.log(arrayCity);
-    document.getElementById('saveCity').innerText = "";
-    for (let elem of arrayCity) {
-        let optionCity = document.createElement('option');
-            optionCity.setAttribute('value', elem);
-            optionCity.setAttribute('class', 'option');
-            optionCity.textContent = elem;
-            document.getElementById('saveCity').appendChild(optionCity);
-    }
+    //Sauvegarder le nom des villes dans le select
+    saveInput();
 
     //Appel de l'API
     fetchAPI(inputCity)
@@ -78,21 +66,64 @@ function catchData()
             },*/
             ]
 
-            //Création de la carte météo
-            CreateCart(oneDay, fourDay);
+            //Création d'une div reprenant une carte
+            let divCart = document.createElement('div');
+            divCart.setAttribute('class', 'main__cart');
+            mainAll.appendChild(divCart);
+    
+            //Création de la GRANDE div pour les données actuelles
+            createCartToday(divCart, oneDay);
+
+            //Création de la DEUXIEME div pour les 4 autres jours
+            createCartOthersDays(divCart, fourDay);
         })
 
         //Effacer les premières données
         .then (mainAll.firstChild.remove())
 }
 
-//Création de la carte météo
-function CreateCart(oneDay, fourDay) {
-    let divCart = document.createElement('div');
-    divCart.setAttribute('class', 'main__cart');
-    mainAll.appendChild(divCart);
+//Sauvegarder le nom des villes dans le select
+function saveInput() {
+    if (arrayCity.indexOf(inputCity) == -1)
+        arrayCity.push(inputCity);
+    const objJson = JSON.stringify(arrayCity);
+    localStorage.setItem('save', objJson);
+    console.log(arrayCity);
+    document.getElementById('saveCity').innerText = "";
+    for (let elem of arrayCity) {
+        let optionCity = document.createElement('option');
+        optionCity.setAttribute('value', elem);
+        optionCity.setAttribute('class', 'option');
+        optionCity.textContent = elem;
+        document.getElementById('saveCity').appendChild(optionCity);
+    }
+}
 
-    //Création de la GRANDE div pour le 1er jour
+//Moyenne des températures
+function CalAverage (newArray, listJson){
+    let compt = 0;
+        totalDegree = 0;
+        newDate = "";
+        newArray = [];
+
+    for (let elem of listJson) {
+        if (!newDate || newDate == elem.dt_txt.split(' ')[0] && listJson.indexOf(elem) < listJson.length - 1) {
+            newDate = elem.dt_txt.split(' ')[0];
+            totalDegree += elem.main.temp;
+            compt++;
+        }
+        else {
+            newArray.push([newDate,((totalDegree/compt).toFixed(2))]);
+            compt = 1;
+            totalDegree = elem.main.temp;
+            newDate = elem.dt_txt.split(' ')[0];
+        }
+    }
+    return newArray;
+    }
+
+//Création de la carte avec les données actuelles
+function createCartToday(divCart, oneDay) {
     let divCart1 = document.createElement('div');
     divCart1.setAttribute('class', 'main__cart1');
     divCart.appendChild(divCart1);
@@ -128,6 +159,11 @@ function CreateCart(oneDay, fourDay) {
     cartWeather.textContent = (' ');
 
     //fonction permettant de placer une image en fonction du temps
+    iconWeather(oneDay, cartWeather);
+}
+
+//Changement de l'icone en fonction du temps qu'il fait
+function iconWeather(oneDay, cartWeather) {
     if (oneDay.wheaterDes == 800) {
         cartWeather.classList.add('main__cart1__weather--clearsky');
     }
@@ -158,8 +194,10 @@ function CreateCart(oneDay, fourDay) {
     else {
         cartWeather.style.visibility = 'hidden';
     }
+}
 
-    //Création de la DEUXIEME div pour les 4 autres jours
+//Création de la carte reprenant les 4 jours suivants
+function createCartOthersDays(divCart, fourDay) {
     let divCart2 = document.createElement('div');
     divCart2.setAttribute('class', 'main__cart2');
     divCart.appendChild(divCart2);
@@ -191,29 +229,6 @@ function CreateCart(oneDay, fourDay) {
         cartWeatherRepeat.textContent = fourDay[i].wheaterDes;*/
     }
 }
-
-//Moyenne des températures
-function CalAverage (newArray, listJson){
-    let compt = 0;
-        totalDegree = 0;
-        newDate = "";
-        newArray = [];
-
-    for (let elem of listJson) {
-        if (!newDate || newDate == elem.dt_txt.split(' ')[0] && listJson.indexOf(elem) < listJson.length - 1) {
-            newDate = elem.dt_txt.split(' ')[0];
-            totalDegree += elem.main.temp;
-            compt++;
-        }
-        else {
-            newArray.push([newDate,((totalDegree/compt).toFixed(2))]);
-            compt = 1;
-            totalDegree = elem.main.temp;
-            newDate = elem.dt_txt.split(' ')[0];
-        }
-    }
-    return newArray;
-    }
 
 document.getElementById('submit').addEventListener('click', function(){catchData()});
 
