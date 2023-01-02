@@ -1,13 +1,11 @@
 //Sélection du main
 let mainAll = document.getElementsByClassName('main')[0];
 
-function catchData()
+function displayWeather()
 {
     let fetchAPI = (nameCity) => fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ nameCity +'&appid=001e5fb3999f87d9911c72d5600aac55&units=metric');
-
-        inputCity = document.getElementById('inputCity').value;
-        arrayCity = [];
-
+    
+    let arrayCity = [];
     arrayCity = JSON.parse(localStorage.getItem('save'))
         if (!arrayCity) {
         arrayCity = []
@@ -59,11 +57,6 @@ function catchData()
                 date: responseAverage[4][0],
                 degree: (responseAverage[4][1] + ' °C'),
             },
-            /*{
-                city: allCity.name,
-                date: responseAverage[5][0],
-                degree: (responseAverage[5][1] + ' °C'),
-            },*/
             ]
 
             //Création d'une div reprenant une carte
@@ -84,6 +77,7 @@ function catchData()
 
 //Sauvegarder le nom des villes dans le select
 function saveInput() {
+    inputCity = document.getElementById('inputCity').value;
     if (arrayCity.indexOf(inputCity) == -1)
         arrayCity.push(inputCity);
     const objJson = JSON.stringify(arrayCity);
@@ -230,6 +224,6 @@ function createCartOthersDays(divCart, fourDay) {
     }
 }
 
-document.getElementById('submit').addEventListener('click', function(){catchData()});
+document.getElementById('submit').addEventListener('click', function(){displayWeather()});
 
 //localStorage.clear();
