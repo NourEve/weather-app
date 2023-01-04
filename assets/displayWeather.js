@@ -5,6 +5,7 @@ import { createCartOthersDays } from "./createCartOthersDays.js";
 
 export function displayWeather()
 {
+    let inputCity = document.getElementById('inputCity').value;
     let fetchAPI = (nameCity) => fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ nameCity +'&appid=001e5fb3999f87d9911c72d5600aac55&units=metric');
         
     let arrayCity = JSON.parse(localStorage.getItem('save'))

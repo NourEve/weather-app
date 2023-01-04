@@ -4,7 +4,7 @@ export function createCartOthersDays(divCart, fourDay) {
     divCart2.setAttribute('class', 'main__cart2');
     divCart.appendChild(divCart2);
     //Création de la boucle pour les 4 jours
-    for (i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
 
         //Création de la div unique par jour
         let divCart2All = document.createElement('div');
