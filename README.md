@@ -1,4 +1,23 @@
 # weather-app
+## Création d'une page web représentant une bibliothèque de jeux vidéo :
+* par Nour Everaert ;
+* en 2 journées de travail ;
+* en date du 21, 22 et 23 décembre 2022 ;
+* dans le cadre de la formation BeCode.
+
+---
+
+## Contenu du repository:
+
+* la page "index.html";
+* la page javascript ;
+* le dossier "assets" comprenant les fichiers CSS et les fichier SCSS;
+*  CSS et SCSS pour les versions mobiles et desktops;
+* images nécessaires à la page web.
+
+---
+
+## Aperçu:
 ### Mobile version
 ![Mobile](https://user-images.githubusercontent.com/117478874/209358478-e7d19a14-c420-4c1f-bf3a-d52ec62fbf2a.png)
 
@@ -8,22 +27,12 @@
 
 ---
 
-Project completed
-
-This repository was created and edited on on December 21, 22 and 23, 2022. This project is an exercise realized during the training web developer junior given by Becode.org.
-
-## Language
+## Langage
 
 - HTML
 - CSS
 - JS
 
-## How to install the repository locally
-
-1. create a local working folder
-2. open Git Bash
-3. clone the repository
-4. now you can work on the file
-
 ---
- [Link to my Github Page.](https://noureve.github.io/weather-app/)
+
+ [Lien vers ma Github Page.](https://noureve.github.io/weather-app/)
