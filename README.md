@@ -1,5 +1,5 @@
 # weather-app
-## Création d'une page web représentant une bibliothèque de jeux vidéo :
+## Création d'une page web représentant une interface d'application météo :
 * par Nour Everaert ;
 * en 2 journées de travail ;
 * en date du 21, 22 et 23 décembre 2022 ;
